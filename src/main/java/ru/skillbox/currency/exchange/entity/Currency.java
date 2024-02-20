@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLInsert;
 
 import javax.persistence.*;
 
@@ -12,6 +13,8 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@SQLInsert(sql = "INSERT INTO currency (iso_char_code, iso_num_code, name, nominal, value, id) values (?, ?, ?, ?, ?, ?) " +
+        "ON CONFLICT(iso_char_code) DO UPDATE SET iso_num_code = EXCLUDED.iso_num_code, name = EXCLUDED.name, nominal = EXCLUDED.nominal, value = EXCLUDED.value")
 public class Currency {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
@@ -31,4 +34,6 @@ public class Currency {
     @Column(name = "iso_num_code")
     private Long isoNumCode;
 
+    @Column(name = "iso_char_code", unique = true)
+    private String isoCharCode;
 }

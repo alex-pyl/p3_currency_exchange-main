@@ -9,16 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CurrencyDto {
-    private Long id;
-
+public class CurrencyPriceDto {
     private String name;
 
-    private Long nominal;
-
     private Double value;
-
-    private Long isoNumCode;
-
-    private String isoCharCode;
 }
